@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2025 新年快乐</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            color: white;
+            z-index: 10;
+        }
+
+        h1 {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .fireworks {
+            font-size: 3rem;
+            margin: 20px 0;
+            animation: bounce 0.6s ease-in-out infinite;
+        }
+
+        .wishes {
+            font-size: 1.5rem;
+            line-height: 2;
+            margin: 30px 0;
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+
+        .wishes p {
+            margin: 10px 0;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .year {
+            font-size: 5rem;
+            font-weight: bold;
+            margin: 20px 0;
+            animation: zoomIn 1s ease-out 0.4s both;
+        }
+
+        /* 烟火效果 */
+        .particle {
+            position: fixed;
+            pointer-events: none;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        @keyframes zoomIn {
+            from {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        .footer {
+            position: absolute;
+            bottom: 30px;
+            width: 100%;
+            text-align: center;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .year {
+                font-size: 3rem;
+            }
+
+            .wishes {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎉 新年快乐！🎉</h1>
+        <div class="fireworks">✨🎆🎇✨</div>
+        <div class="year">2025</div>
+        <div class="wishes">
+            <p>祝你在2025年里</p>
+            <p>✨ 事业蒸蒸日上 ✨</p>
+            <p>💪 身体健康快乐 💪</p>
+            <p>🌟 收获满满的成功 🌟</p>
+            <p>☀️ 每天都充满阳光 ☀️</p>
+            <p style="margin-top: 20px; font-size: 1.2rem;"><strong>新的一年，新的开始，加油！</strong></p>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>© 2025 - Du463's Blog | 新年贺岁专页</p>
+    </div>
+
+    <script>
+        // 烟火粒子效果
+        function createFireworks() {
+            const colors = ['#ff0000', '#ff7700', '#ffff00', '#00ff00', '#0000ff', '#4b0082', '#9400d3'];
+            
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.width = Math.random() * 10 + 5 + 'px';
+                particle.style.height = particle.style.width;
+                particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                particle.style.borderRadius = '50%';
+                particle.style.left = Math.random() * window.innerWidth + 'px';
+                particle.style.top = Math.random() * window.innerHeight + 'px';
+                
+                document.body.appendChild(particle);
+                
+                // 动画
+                const duration = Math.random() * 2 + 2;
+                const angle = Math.random() * Math.PI * 2;
+                const distance = Math.random() * 300 + 100;
+                
+                particle.animate([
+                    {
+                        transform: 'translate(0, 0)',
+                        opacity: 1
+                    },
+                    {
+                        transform: `translate(${Math.cos(angle) * distance}px, ${Math.sin(angle) * distance}px)`,
+                        opacity: 0
+                    }
+                ], {
+                    duration: duration * 1000,
+                    easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+                });
+                
+                // 动画结束后移除
+                setTimeout(() => particle.remove(), duration * 1000);
+            }
+        }
+
+        // 定时触发烟火
+        window.addEventListener('load', () => {
+            createFireworks();
+            setInterval(createFireworks, 3000);
+        });
+
+        // 点击屏幕也能触发烟火
+        document.addEventListener('click', createFireworks);
+    </script>
+</body>
+</html>
